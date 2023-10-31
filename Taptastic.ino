@@ -417,11 +417,6 @@ void gameTitle7() { //quick fire
 }
 
 void gameOverScreen(int HS, int score, int gameNumber) { //game over screen
-  while (checkButton() != 0) //if the button is still being held from the intro screen,wait for it to be released
-  {
-    //do nothing
-  }
-  delay(250);
   display.clearDisplay();
   display.setTextSize(1.5);
   display.setCursor(0, 0);
@@ -445,7 +440,10 @@ void gameOverScreen(int HS, int score, int gameNumber) { //game over screen
   display.display();
   btnLED.clear();
   btnLED.show();
- 
+  while (digitalRead(buttonPin) == LOW) //wait for button to be released
+  {
+    delay(200);
+  }
   int buttonResult = checkButton();
   while (buttonResult == 0) { //wait for button press or hold
     delay(100);
@@ -511,11 +509,10 @@ void sorry(int failNumber, int gameNumber) {
   btnLED.clear();
   btnLED.fill(getColor(0),0,1);
   btnLED.show();
-  while (checkButton() != 0) //wait for button to be released
+  while (digitalRead(buttonPin) == LOW) //wait for button to be released
   {
-    //do nothing
+    delay(200);
   }
-  delay(250);
   int buttonResult = checkButton();
   while (buttonResult == 0) { //wait for button press or hold
     delay(100);
@@ -583,7 +580,7 @@ void tooSoon(int failNumber, int gameNumber) {
   btnLED.show();
   while (digitalRead(buttonPin) == LOW) //wait for button to be released
   {
-    delay(250);
+    delay(200);
   }
   int buttonResult = checkButton();
   while (buttonResult == 0) { //wait for button press or hold
@@ -634,10 +631,6 @@ void tooSoon(int failNumber, int gameNumber) {
 }
 
 void newHS(int newHighScore, int gameNumber) { //new high score screen
-  while (checkButton() != 0) //wait for button to be released
-  {
-    //do nothing
-  }
   display.clearDisplay();
   display.setTextSize(2);
   display.setCursor(0, 0);
@@ -655,7 +648,10 @@ void newHS(int newHighScore, int gameNumber) { //new high score screen
   btnLED.clear();
   btnLED.fill(getColor(6),0,1);
   btnLED.show();
-  delay(250);
+  while (digitalRead(buttonPin) == LOW) //wait for button to be released
+  {
+    delay(200);
+  }
   int buttonResult = checkButton();
   while (buttonResult == 0) { //wait for button press or hold
     delay(100);
